@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/security"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+    
+        
+        
+    <b:import resource="classpath:dbBean.xml"/>
+            
+    <http use-expressions="true">
+        <csrf disabled="true"/>
+      
+        <!--<intercept-url pattern="/**" access="isAuthenticated()"/>-->
+        <!-- must have ROLE_user in database for this to work-->
+        <!--<intercept-url pattern="/index" access="hasRole('user')"/>-->
+        <intercept-url pattern="/adminPanel" access="hasRole('admin')" />
+        <intercept-url pattern="/input_element_aftertest" access="hasRole('admin')" />
+        <intercept-url pattern="/updateCropInfo" access="hasRole('admin')" />
+        <intercept-url pattern="/getCropForUpdate" access="hasRole('admin')" />
+        <intercept-url pattern="/updateCrop" access="hasRole('admin')" />
+        <intercept-url pattern="/gotoPrediction" access="hasRole('admin')" />
+        <intercept-url pattern="/getPredictedCrops" access="hasRole('admin')" />
+        <intercept-url pattern="/showDelete" access="hasRole('admin')" />
+        <intercept-url pattern="/getGraph" access="hasRole('admin')" />
+        <intercept-url pattern="/performDeletion" access="hasRole('admin')" />
+        <intercept-url pattern="/getProfitByKhotiyanNumber" access="hasRole('admin')" />
+        <!--<intercept-url pattern="/about" access="hasRole('farmer')" />-->
+        <form-login login-page="/login"/>
+        <logout />
+        
+    </http>
+
+    <authentication-manager>
+        <authentication-provider>
+            <jdbc-user-service
+                data-source-ref="dataSource"/>
+        </authentication-provider>
+    </authentication-manager>
+
+	
+
+</b:beans>
